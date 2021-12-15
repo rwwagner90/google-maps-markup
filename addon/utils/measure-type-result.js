@@ -5,10 +5,14 @@ import distance from './distance';
 import optionsData from './options-data';
 
 export default function measureTypeResult(type, value, unitId) {
-  let units = A(optionsData[type].distanceUnits);
+  let units = optionsData[type]?.distanceUnits
+    ? A(optionsData[type]?.distanceUnits)
+    : null;
+
+  debugger;
   let result = {
     measurementType: 'Distance',
-    unit: units && units.findBy('id', unitId),
+    unit: units?.findBy('id', unitId),
     value: 0,
   };
 
@@ -18,7 +22,7 @@ export default function measureTypeResult(type, value, unitId) {
       result.value = value * 3.28084;
       result = distance(result);
       // Reset the correct unit format
-      result.unit = units && units.findBy('id', result.unit);
+      result.unit = units?.findBy('id', result.unit);
       break;
     }
 

@@ -23,7 +23,8 @@ module.exports = {
     google: true,
   },
   rules: {
-    'ember/no-jquery': 0,
+    'ember/no-computed-properties-in-native-classes': 'off',
+    'ember/no-jquery': 'off',
   },
   overrides: [
     // node files

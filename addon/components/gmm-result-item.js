@@ -15,7 +15,7 @@ export default class GmmResultItem extends Node {
 
     let data = this.args.data;
 
-    if (data.feature.addListener) {
+    if (data?.feature?.addListener) {
       let changeListener = data.feature.addListener('changelabel', () => {
         data.geojson.properties.label = data.feature.label;
         this.textLabel = data.feature.label;
@@ -25,7 +25,7 @@ export default class GmmResultItem extends Node {
     }
   }
 
-  @computed('data.{mode,feature}', 'textLabel')
+  @computed('args.data', 'data.{feature,mode}', 'textLabel')
   get description() {
     if (this.textLabel) {
       return this.textLabel;
@@ -82,12 +82,12 @@ export default class GmmResultItem extends Node {
     set(data, 'editingShape', edit);
 
     if (edit) {
-      if (data.type === 'text') {
+      if (data?.type === 'text') {
         this.originalFeatureGeometry = data.feature.position;
         data.feature.draggable = true;
         // TODO: implement label dragging
       } else {
-        listener = google.maps.event.addListener(
+        listener = google?.maps?.event?.addListener(
           data.feature,
           'setgeometry',
           () => {
@@ -120,7 +120,7 @@ export default class GmmResultItem extends Node {
       }
     }
 
-    this.args.data = data;
+    set(this, 'args.data', data);
   }
 
   @action

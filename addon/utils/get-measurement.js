@@ -5,9 +5,12 @@ import measureTypeResult from './measure-type-result';
 export default function getMeasurement(type, feature, distanceUnitId) {
   switch (type) {
     case 'polyline': {
+      debugger;
       let geometry = feature.getGeometry();
       let paths = geometry.getArray();
       let distance = pathDistance(paths);
+
+      debugger;
 
       return measureTypeResult(type, distance, distanceUnitId);
     }

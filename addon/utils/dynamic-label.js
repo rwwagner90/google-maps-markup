@@ -133,7 +133,7 @@ function createDynamicLabel() {
       let fontSize = Number(this.fontSize.replace('px', ''));
       let contentLines = content.split(/\r|\n/);
       let contentHeight = contentLines.length * fontSize;
-      let contentWidth = contentLines.reduce((total, line) => {
+      let contentWidth = contentLines?.reduce((total, line) => {
         let div = document.createElement('div');
 
         div.style.position = 'absolute';

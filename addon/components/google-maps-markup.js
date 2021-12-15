@@ -109,9 +109,9 @@ export default class GoogleMapsMarkup extends Root {
     if (editable) {
       let popup = new google.maps.InfoWindow();
 
-      popup.setContent(`<div id='google-maps-markup-infowindow'></div>`);
+      popup?.setContent(`<div id='google-maps-markup-infowindow'></div>`);
 
-      popup.addListener('closeclick', () => {
+      popup?.addListener('closeclick', () => {
         set(popup, 'lastData.editing', false);
         set(popup, 'lastData', undefined);
         // cleanup?
@@ -350,7 +350,7 @@ export default class GoogleMapsMarkup extends Root {
           }
         );
         let mouseoutListener = activeLayer.data.addListener('mouseout', () => {
-          this.childComponents.forEach((comp) => {
+          this.childComponents?.forEach((comp) => {
             this.resetResultStyle(comp.args.data);
           });
         });
@@ -407,7 +407,7 @@ export default class GoogleMapsMarkup extends Root {
 
   @action
   toggleResults() {
-    let isHidden = this.toggleProperty('resultsHidden');
+    let isHidden = set(this, 'resultsHidden', !this.resultsHidden);
     let activeLayer = this.activeLayer;
     let results = this.results;
 

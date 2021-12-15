@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import EmberObject, { action, computed, get } from '@ember/object';
+import EmberObject, { action, computed, get, set } from '@ember/object';
 import { A as boundArray } from '@ember/array';
 import createFeature from '../utils/create-feature';
 import initMeasureLabel from '../utils/init-measure-label';
@@ -44,18 +44,19 @@ export default class MarkupData extends Service {
   }
 
   activate(map) {
-    this.set('map', map);
+    set(this, 'map', map);
 
     let layers = this.layers;
-    let measureResults = this.get('markupResults.measure');
+    // eslint-disable-next-line ember/no-get
+    let measureResults = get(this, 'markupResults.measure');
 
     // Enable all layers to show on map
-    layers.forEach((layer) => {
+    layers?.forEach((layer) => {
       layer.data.setMap(map);
     });
 
     // Init measure labels
-    measureResults.forEach((result) => {
+    measureResults?.forEach((result) => {
       if (result.label) {
         result.label.setMap(map);
       } else {
@@ -72,7 +73,7 @@ export default class MarkupData extends Service {
       let modeResults = get(markupResults, key);
 
       if (modeResults && modeResults.length) {
-        this.set('mode', key);
+        set(this, 'mode', key);
         return;
       }
     }
@@ -100,6 +101,7 @@ export default class MarkupData extends Service {
       }),
     ];
 
+    // eslint-disable-next-line ember/no-side-effects
     this._cachedLayers = items;
 
     return items;
@@ -113,7 +115,7 @@ export default class MarkupData extends Service {
       return undefined;
     }
 
-    return this.get(`markupResults.${mode}`);
+    return get(this, `markupResults.${mode}`);
   }
 
   set results(data) {
@@ -123,8 +125,9 @@ export default class MarkupData extends Service {
       return;
     }
 
-    this.set(`markupResults.${mode}`, data);
+    set(this, `markupResults.${mode}`, data);
 
+    // eslint-disable-next-line no-setter-return
     return data;
   }
 
@@ -133,7 +136,7 @@ export default class MarkupData extends Service {
     if (!id) {
       id = this.tools.pan.id;
     }
-    let toolIds = mode ? this.get(mode + 'Tools') : this.tools;
+    let toolIds = mode ? get(this, mode + 'Tools') : this.tools;
 
     return Array.isArray(toolIds) ? toolIds.findBy('id', id) : toolIds[id];
   }
@@ -146,7 +149,7 @@ export default class MarkupData extends Service {
     let mode = feature.getProperty('mode');
     let style = feature.getProperty('style');
     let type = feature.getProperty('type');
-    let results = this.get(`markupResults.${mode}`);
+    let results = get(this, `markupResults.${mode}`);
     let tool = this.getTool(type, mode);
     let result = {
       mode,

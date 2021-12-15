@@ -1,6 +1,6 @@
 export default function pathDistance(points) {
   let processed = [];
-  let value = points.reduce((val, point) => {
+  let value = points?.reduce((val, point) => {
     let lastIndex = processed.length ? processed.length - 1 : undefined;
 
     if (lastIndex !== undefined) {

@@ -10,7 +10,10 @@ module('Unit | Utility | get measurement', function () {
         { lat: 42.503490421367296, lng: -71.08291625976562 },
       ]),
     });
+    debugger;
     var result = getMeasurement('polyline', feature);
+
+    debugger;
 
     assert.ok(result.value);
     assert.ok(result.unit);

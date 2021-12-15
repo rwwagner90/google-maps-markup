@@ -6,7 +6,7 @@ export default class GmmSortableResults extends Component {
   sortEndAction() {
     let results = this.args.results;
 
-    results.forEach((result) => {
+    results?.forEach((result) => {
       result.style.zIndex = 0;
     });
     results[0].style.zIndex = 111;

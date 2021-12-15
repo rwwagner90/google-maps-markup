@@ -32,7 +32,7 @@ export default class ApplicationController extends Controller {
     let markupService = this.markupDataService;
     let dataLayers = markupService.layers;
 
-    dataLayers.forEach((layer, index) => {
+    dataLayers?.forEach((layer, index) => {
       layer.data.addGeoJson(markupData[index]);
       layer.data.forEach((feature) =>
         markupService.featureToResult(feature, layer)

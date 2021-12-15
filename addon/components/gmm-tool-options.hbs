@@ -12,10 +12,11 @@
       </div>
     {{else if (is-equal opt.type 'opacity')}}
       <div class='form-group'>
-        <label>
+        <label for='opacity-input'>
           {{opt.name}}
         </label>
         <input
+          id='opacity-input'
           type='range'
           min='0'
           max='1'
